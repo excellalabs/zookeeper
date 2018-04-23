@@ -1,0 +1,13 @@
+.DS_Store
+
+Dockerfile.ci
+
+*.env
+
+.bundle/
+
+vendor/
+
+*.pyc
+
+provisioning/*.template
