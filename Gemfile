@@ -1,0 +1,8 @@
+source 'https://rubygems.org'
+gem 'aws-sdk'
+gem 'berkshelf'
+gem 'kitchen-ec2'
+gem 'rspec'
+gem 'serverspec'
+gem 'test-kitchen'
+gem 'kitchen-vagrant'
