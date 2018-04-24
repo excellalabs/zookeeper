@@ -1,13 +1,28 @@
 .DS_Store
-
 Dockerfile.ci
-
 *.env
-
 .bundle/
-
 vendor/
-
 *.pyc
-
 provisioning/*.template
+
+.vagrant
+*~
+*#
+.#*
+\#*#
+.*.sw[a-z]
+*.un~
+
+# Bundler
+bin/*
+.bundle/*
+
+# test kitchen
+.kitchen/
+.kitchen.local.yml
+
+# Chef
+Berksfile.lock
+.zero-knife.rb
+Policyfile.lock.json
