@@ -1,8 +1,8 @@
 name 'cookbooks'
-maintainer 'The Authors'
-maintainer_email 'you@example.com'
+maintainer 'Ali Jafari | Excella Data Lab'
+maintainer_email 'ali.jafari@excella.com'
 license 'All Rights Reserved'
-description 'Installs/Configures cookbooks'
+description 'Configures Zookeeper post-install'
 long_description 'Installs/Configures cookbooks'
 version '0.1.0'
 chef_version '>= 12.14' if respond_to?(:chef_version)
@@ -18,3 +18,8 @@ chef_version '>= 12.14' if respond_to?(:chef_version)
 # a Supermarket.
 #
 # source_url 'https://github.com/<insert_org_here>/cookbooks'
+
+# depends 'zookeeper', '~> 10.0.1'
+
+depends 'confluent-cookbook', '~> 0.4.0'
+# depends 'confluent-cookbook', '= 0.3.0'
