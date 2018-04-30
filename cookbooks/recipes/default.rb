@@ -2,7 +2,9 @@
 # Cookbook:: cookbooks
 # Recipe:: default
 #
-# Copyright:: 2018, The Authors, All Rights Reserved.
+# Copyright:: 2018, Ali Jafari - Excella Data Lab, All Rights Reserved.
+
+include_recipe 'cookbooks::service'
 
 script 'download confluent key' do
   interpreter 'bash'
@@ -26,8 +28,61 @@ package 'software-properties-common'
 
 package 'confluent-platform-oss-2.11'
 
+bash 'install-cfn-tools' do
+  code <<-SCRIPT
+  apt-get update
+  apt-get -y install python-setuptools
+  mkdir aws-cfn-bootstrap-latest
+  curl https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz | tar xz -C aws-cfn-bootstrap-latest --strip-components 1
+  easy_install aws-cfn-bootstrap-latest
+  SCRIPT
+end
 
-# service 'zookeeper' do
-#   action %i[unmask enable]
-#   provider Chef::Provider::Service::Systemd
+# Prepare chef-solo work area for on-boot
+directory '/var/chef/solo' do
+  recursive true
+  owner 'root'
+  group 'root'
+  mode '0755'
+end
+
+package 'ruby'
+
+bash 'install gems' do
+  code <<-EOH
+  source /usr/local/rvm/scripts/rvm
+  gem install aws-sdk keystore
+  EOH
+end
+
+# Copy cookbooks off for on-boot use
+# script 'save cookbooks' do
+#   interpreter 'bash'
+#   code 'cp -Rp /packertmp/packer-chef-solo/cookbooks-0 /var/chef/solo/'
+#   not_if { node['test_kitchen'] }
 # end
+
+directory '/var/chef/solo/cookbooks-0' do
+  mode '0644'
+end
+
+file '/var/chef/solo/solo.rb' do
+  owner 'root'
+  group 'root'
+  mode '0400'
+  content 'cookbook_path  ["/var/chef/solo/cookbooks-0"]'
+end
+
+cookbook_file '/usr/local/bin/eni_switcher.rb' do
+  source 'eni_switcher.rb'
+  owner 'root'
+  group 'root'
+  mode '0755'
+end
+
+cookbook_file '/usr/local/bin/network_config.sh.erb' do
+  source 'network_config.sh.erb'
+  owner 'root'
+  group 'root'
+  mode '0755'
+end

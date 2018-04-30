@@ -1,0 +1,18 @@
+[Unit]
+Description=Zookeeper
+After=network.target auditd.service
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/default/zookeeper
+User=root
+Group=root
+ExecStart=/usr/bin/zookeeper-server-start /etc/kafka/zookeeper.properties
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=zookeeper
+
+[Install]
+WantedBy=multi-user.target
