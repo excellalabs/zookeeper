@@ -38,14 +38,6 @@ bash 'install-cfn-tools' do
   SCRIPT
 end
 
-# Prepare chef-solo work area for on-boot
-directory '/var/chef/solo' do
-  recursive true
-  owner 'root'
-  group 'root'
-  mode '0755'
-end
-
 package 'ruby'
 
 bash 'install gems' do
@@ -55,16 +47,34 @@ bash 'install gems' do
   EOH
 end
 
-# Copy cookbooks off for on-boot use
-# script 'save cookbooks' do
-#   interpreter 'bash'
-#   code 'cp -Rp /packertmp/packer-chef-solo/cookbooks-0 /var/chef/solo/'
-#   not_if { node['test_kitchen'] }
-# end
+# Prepare chef-solo work area for on-boot
+directory '/var/chef/solo' do
+  recursive true
+  owner 'root'
+  group 'root'
+  mode '0755'
+end
 
 directory '/var/chef/solo/cookbooks-0' do
   mode '0644'
 end
+
+# Copy cookbooks off for on-boot use
+script 'save cookbooks' do
+  interpreter 'bash'
+  code 'cp -Rp /tmp/kitchen/cache/cookbooks/cookbooks/ /var/chef/solo/cookbooks-0'
+  not_if { node['test_kitchen'] }
+end
+
+# remote_directory '/var/chef/solo/cookbooks-0' do
+#   source 'files/default/local_directory'
+#   files_owner 'root'
+#   files_group 'root'
+#   files_mode '0750'
+#   action :create
+#   recursive true
+# end
+
 
 file '/var/chef/solo/solo.rb' do
   owner 'root'
@@ -82,6 +92,20 @@ end
 
 cookbook_file '/usr/local/bin/network_config.sh.erb' do
   source 'network_config.sh.erb'
+  owner 'root'
+  group 'root'
+  mode '0755'
+end
+
+cookbook_file '/usr/local/bin/zk_server.rb' do
+  source 'zk_server.rb'
+  owner 'root'
+  group 'root'
+  mode '0755'
+end
+
+cookbook_file '/usr/local/bin/zk_run.sh' do
+  source 'zk_run.sh'
   owner 'root'
   group 'root'
   mode '0755'
