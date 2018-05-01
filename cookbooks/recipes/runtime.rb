@@ -1,7 +1,7 @@
 include_recipe 'cookbooks::service'
 
-ens4_addresses = node.network.interfaces.ens4.addresses
-inet_addresses = ens4_addresses.map do |address, properties|
+eth1_addresses = node.network.interfaces.eth1.addresses
+inet_addresses = eth1_addresses.map do |address, properties|
   address if properties['family'] == 'inet'
 end
 eni_ip = inet_addresses.reject(&:nil?).first

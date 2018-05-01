@@ -1,12 +1,12 @@
 #!/bin/bash -e
 export GATEWAY=`route -n | grep "^0.0.0.0" | tr -s " " | cut -f2 -d" "`
 
-if [ -f /etc/network/interfaces.d/ens4.cfg ]; then mv -f /etc/network/interfaces.d/ens4.cfg /etc/network/interfaces.d/backup.ens4.cfg.backup; fi
-cat > /etc/network/interfaces.d/ens4.cfg <<ETHCFG
-auto ens4
-iface ens4 inet dhcp
-    up ip route add default via $GATEWAY dev ens4 table ens4_rt
-    up ip rule add from <%= ipaddr %> lookup ens4_rt prio 1000
+if [ -f /etc/network/interfaces.d/eth1.cfg ]; then mv -f /etc/network/interfaces.d/eth1.cfg /etc/network/interfaces.d/backup.eth1.cfg.backup; fi
+cat > /etc/network/interfaces.d/eth1.cfg <<ETHCFG
+auto eth1
+iface eth1 inet dhcp
+    up ip route add default via $GATEWAY dev eth1 table eth1_rt
+    up ip rule add from <%= ipaddr %> lookup eth1_rt prio 1000
 ETHCFG
 
 mv /etc/iproute2/rt_tables /etc/iproute2/backup.rt_tables.backup
@@ -22,10 +22,10 @@ cat > /etc/iproute2/rt_tables <<RTTABLES
 # local
 #
 #1      inr.ruhep
-2 ens4_rt
+2 eth1_rt
 RTTABLES
 
-ifup ens4
+ifup eth1
 
-ip route add default via $GATEWAY dev ens4 table ens4_rt ;
-ip rule add from <%= ipaddr %> lookup ens4_rt prio 1000 ;
+ip route add default via $GATEWAY dev eth1 table eth1_rt ;
+ip rule add from <%= ipaddr %> lookup eth1_rt prio 1000 ;
