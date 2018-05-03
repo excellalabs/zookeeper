@@ -14,7 +14,8 @@ class ENISwitcher
                                                 { name: 'status', values: ['available'] }
                                               ]).network_interfaces[0]
     if eni_id.nil?
-      puts 'No available ENI. Marking instance unhealthy'
+      error = 'No available ENI. Marking instance unhealthy'
+      puts error
       # @asg.set_instance_health(
       #   health_status: 'Unhealthy',
       #   instance_id: instance_id

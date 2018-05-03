@@ -23,10 +23,14 @@ script 'apt-get update' do
   code 'apt-get update'
 end
 
-package 'awscli'
-package 'software-properties-common'
-
-package 'confluent-platform-oss-2.11'
+[
+  'awscli',
+  'software-properties-common',
+  'ruby',
+  'confluent-platform-oss-2.11'
+].each do |pkg|
+  package pkg
+end
 
 bash 'install-cfn-tools' do
   code <<-SCRIPT
@@ -37,8 +41,6 @@ bash 'install-cfn-tools' do
   easy_install aws-cfn-bootstrap-latest
   SCRIPT
 end
-
-package 'ruby'
 
 bash 'install gems' do
   code <<-EOH
@@ -59,22 +61,21 @@ directory '/var/chef/solo/cookbooks-0' do
   mode '0644'
 end
 
-# Copy cookbooks off for on-boot use
+# script 'save cookbooks' do
 script 'save cookbooks' do
+  # for vagrant
   interpreter 'bash'
   code 'cp -Rp /tmp/kitchen/cache/cookbooks/cookbooks/ /var/chef/solo/cookbooks-0'
-  not_if { node['test_kitchen'] }
+  only_if { ::Dir.exist?('/tmp/kitchen/cache/cookbooks/cookbooks/') }
 end
 
-# remote_directory '/var/chef/solo/cookbooks-0' do
-#   source 'files/default/local_directory'
-#   files_owner 'root'
-#   files_group 'root'
-#   files_mode '0750'
-#   action :create
-#   recursive true
-# end
-
+script 'save cookbooks' do
+  interpreter 'bash'
+  # ec2
+  code 'cp -Rp /tmp/packer-chef-solo/local-mode-cache/cache/cookbooks/cookbooks/ /var/chef/solo/cookbooks-0'
+  not_if { node['test_kitchen'] }
+  only_if { ::Dir.exist?('/tmp/packer-chef-solo/local-mode-cache/cache/cookbooks/cookbooks/') }
+end
 
 file '/var/chef/solo/solo.rb' do
   owner 'root'
@@ -83,29 +84,29 @@ file '/var/chef/solo/solo.rb' do
   content 'cookbook_path  ["/var/chef/solo/cookbooks-0"]'
 end
 
-cookbook_file '/usr/local/bin/eni_switcher.rb' do
-  source 'eni_switcher.rb'
-  owner 'root'
-  group 'root'
-  mode '0755'
+[ 'eni_switcher.rb',
+  'network_config.sh.erb',
+  'zk_server.rb',
+  'zk_run.sh',
+  'zookeeper.properties.erb',
+  'myid.erb'
+].each do |file|
+  cookbook_file "/usr/local/bin/#{file}" do
+    source "#{file}"
+    owner 'root'
+    group 'root'
+    mode '0755'
+  end
 end
 
-cookbook_file '/usr/local/bin/network_config.sh.erb' do
-  source 'network_config.sh.erb'
-  owner 'root'
-  group 'root'
-  mode '0755'
-end
+# setup keystore env
+vars = StringIO.new
+vars << "export inventory_store=Pipeline_Key_Store\n"
+vars << "export kms_id=fc112e37-27c7-4e56-b6e7-6744e226d07e\n"
+vars << "export AWS_DEFAULT_REGION=us-east-1\n"
 
-cookbook_file '/usr/local/bin/zk_server.rb' do
-  source 'zk_server.rb'
-  owner 'root'
-  group 'root'
-  mode '0755'
-end
-
-cookbook_file '/usr/local/bin/zk_run.sh' do
-  source 'zk_run.sh'
+file '/etc/profile.d/keystore.sh' do
+  content vars.string
   owner 'root'
   group 'root'
   mode '0755'
