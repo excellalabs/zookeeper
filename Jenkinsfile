@@ -11,7 +11,7 @@ which bundle || gem install bundler
         sh 'rubocop'
         sh '''export PATH="$PATH:/var/lib/jenkins/apps/packer"
 packer -version
-aws --version
+# aws --version
 '''
       }
     }
