@@ -1,4 +1,3 @@
-def ami_id = 'UNKNOWN'
 pipeline {
   agent any
   stages {
@@ -15,22 +14,20 @@ pipeline {
           # Build AMI with Packer
           # packer build packer.json
           # ami_id="$(cat manifest.json | jq -r .builds[0].artifact_id | cut -d\':\' -f2)"
-          ami_id='hello hani'
-          echo "1 ==> ${ami_id}"
+          ami_id='ami-7390160c'
+          echo ${ami_id}
+          keystore.rb store --table $inventory_store --kmsid $kms_id --keyname "ZOOKEEPER_LATEST_AMI" --value ${ami_id}
         '''
-        script {
-          ami_id='hello hani'
-        }
-        echo "2 ==> ${ami_id}"
       }
     }
     stage('Deployment') {
       steps {
         sh '''
           echo "start deployment"
-          echo "3 ==> deploy ami: ${ami_id}"
+          ami_id="$(keystore.rb retrieve --table $inventory_store --keyname ZOOKEEPER_LATEST_AMI)"
+          echo ${ami_id}
         '''
-        echo "4 ==> ${ami_id}"
+        echo ${ami_id}
       }
     }
   }
