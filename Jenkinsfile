@@ -13,7 +13,7 @@ which bundle || gem install bundler
 
 echo "hello hani"'''
         sh '''packer -v
-packer help
+
 '''
       }
     }
