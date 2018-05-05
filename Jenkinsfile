@@ -16,6 +16,9 @@ echo "hello hani"'''
 berks vendor cookbooks/vendor-cookbooks
 
 '''
+        sh '''# Build AMI with Packer
+# packer build packer.json
+env | grep AWS_ACCESS_KEY_ID'''
       }
     }
     stage('Deployment') {
