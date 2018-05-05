@@ -4,10 +4,11 @@ pipeline {
     stage('Commit') {
       steps {
         sh '''whoami;pwd;
-sudo apt-add-repository -y ppa:rael-gc/rvm
-sudo apt-get update
-sudo apt-get install rvm -y
-rvm install ruby
+# echo jenkins | sudo -S apt-add-repository -y ppa:rael-gc/rvm
+echo jenkins | sudo -S apt-get update
+# sudo apt-get install rvm -y
+# rvm install ruby
+echo jenkins | sudo -S apt-get install ruby
 '''
         sh 'ruby --version'
         sh 'bundle install'
