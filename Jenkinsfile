@@ -4,7 +4,7 @@ pipeline {
     stage('Commit') {
       steps {
         sh 'whoami;pwd'
-        sh 'gem install bundler'
+        sh 'ruby --version'
         sh 'bundle install'
         sh 'rubocop'
         sh 'echo "packer build"'
