@@ -21,5 +21,5 @@ chef_version '>= 12.14' if respond_to?(:chef_version)
 
 # depends 'zookeeper', '~> 10.0.1'
 
-depends 'confluent-cookbook', '~> 0.4.0'
+# depends 'confluent-cookbook', '~> 0.4.0'
 # depends 'confluent-cookbook', '= 0.3.0'

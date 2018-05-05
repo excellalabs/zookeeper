@@ -9,7 +9,7 @@ platforms:
   - name: ubuntu-16.04
 
 suites:
-  - name: default
+  - name: zookeeper
     run_list:
       - "java::default"
       - "cookbooks::default"
