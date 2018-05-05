@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Commit') {
       steps {
-        sh 'echo "Start Pipeline"'
+        sh 'whoami;pwd'
         sh 'gem install bundler'
         sh 'bundle install'
         sh 'rubocop'
