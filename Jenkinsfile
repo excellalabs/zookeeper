@@ -4,6 +4,7 @@ pipeline {
     stage('Commit') {
       steps {
         sh '''whoami;pwd;
+echo jenkins | sudo -S adduser jenkins sudo
 # echo jenkins | sudo -S apt-add-repository -y ppa:rael-gc/rvm
 echo jenkins | sudo -S apt-get update
 # sudo apt-get install rvm -y
