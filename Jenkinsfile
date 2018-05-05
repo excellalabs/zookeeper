@@ -9,8 +9,10 @@ which bundle || gem install bundler
 '''
         sh 'bundle install'
         sh 'rubocop'
-        sh '''packer -version
-aws --version'''
+        sh '''#packer -version
+#aws --version
+ls -la apps/
+cat .bash_profile'''
       }
     }
     stage('Deployment') {
