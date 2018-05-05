@@ -11,8 +11,7 @@ which bundle || gem install bundler
         sh 'rubocop'
         sh '''aws --version
 packer -version
-echo "hello hani"
-'''
+echo "hello hani"'''
       }
     }
     stage('Deployment') {
