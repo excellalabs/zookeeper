@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Commit') {
       steps {
-        sh 'whoami;pwd'
+        sh 'whoami;pwd;rvm --version'
         sh 'ruby --version'
         sh 'bundle install'
         sh 'rubocop'
