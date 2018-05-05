@@ -3,16 +3,9 @@ pipeline {
   stages {
     stage('Commit') {
       steps {
-        sh '''echo jenkins | sudo -S adduser jenkins sudo;
-whoami;
-pwd;
-# echo jenkins | sudo -S apt-add-repository -y ppa:rael-gc/rvm
-echo jenkins | sudo -S apt-get update
-# sudo apt-get install rvm -y
-# rvm install ruby
-
-
-# echo jenkins | sudo -S apt-get install ruby
+        sh '''whoami
+pwd
+which bundle || gem install bundler
 '''
         sh 'ruby --version'
         sh 'bundle install'
