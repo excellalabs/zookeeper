@@ -1,12 +1,14 @@
+# rubocop:disable Metrics/MethodLength, Metrics/LineLength, Lint/UnusedMethodArgument
 require 'erb'
 require 'aws-sdk'
 require 'trollop'
 require 'net/http'
 
+# Setup zk server
 class ZKServer
-  attr_accessor :zk_ip_1, :zk_ip_2, :zk_ip_3
+  attr_accessor :zk_ip1, :zk_ip2, :zk_ip3
   def setup_myid(instance_az)
-    @instance_ip = get_instance_ip(instance_az)
+    instance_ip = get_instance_ip(instance_az)
     template = ERB.new File.read('/usr/local/bin/myid.erb')
     zk_id = template.result(binding)
     File.write('/var/lib/zookeeper/myid', zk_id)
@@ -14,21 +16,21 @@ class ZKServer
   end
 
   def initialize(region)
-    @zk_ip_1 = '10.100.1.100'
-    @zk_ip_2 = '10.100.2.100'
-    @zk_ip_3 = '10.100.3.100'
+    @zk_ip1 = '10.100.1.100'
+    @zk_ip2 = '10.100.2.100'
+    @zk_ip3 = '10.100.3.100'
   end
 
   def get_instance_ip(instance_az)
     case instance_az
-      when 'us-east-1a' then zk_ip_1
-      when 'us-east-1b' then zk_ip_2
-      else zk_ip_3
+    when 'us-east-1a' then zk_ip1
+    when 'us-east-1b' then zk_ip2
+    else zk_ip3
     end
   end
 
   def setup_zk_config(instance_az)
-    @instance_ip = get_instance_ip(instance_az)
+    instance_ip = get_instance_ip(instance_az)
     template = ERB.new File.read('/usr/local/bin/zookeeper.properties.erb')
     conf = template.result(binding)
     puts conf
@@ -36,19 +38,19 @@ class ZKServer
   end
 
   def update_zk_tag(region, instance_id, zk_id)
-    client=Aws::EC2::Client.new(region: region)
-    resp = client.delete_tags({resources: [instance_id]})
-    resp = client.create_tags({
+    client = Aws::EC2::Client.new(region: region)
+    client.delete_tags(resources: [instance_id])
+    client.create_tags(
       resources: [
-        instance_id, 
-      ], 
+        instance_id
+      ],
       tags: [
         {
-          key: 'Name', 
-          value: "ZOOKEEPER-#{zk_id}", 
-        }, 
-      ], 
-    })
+          key: 'Name',
+          value: "ZOOKEEPER-#{zk_id}"
+        }
+      ]
+    )
   end
 end
 
@@ -66,4 +68,6 @@ puts "Zookepeper Id: #{zk_id}"
 puts "Instance Zone: #{instance_az}"
 zk.setup_zk_config(instance_az)
 zk.update_zk_tag(opts[:region], instance_id, zk_id)
-puts "*** DONE SETTING ZOOKEEPER SERVER ***"
+puts '*** DONE SETTING ZOOKEEPER SERVER ***'
+
+# rubocop:enable Metrics/MethodLength, Metrics/LineLength, Lint/UnusedMethodArgument

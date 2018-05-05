@@ -4,6 +4,8 @@
 #
 # Copyright:: 2018, Ali Jafari - Excella Data Lab, All Rights Reserved.
 
+# rubocop:disable Metrics/LineLength
+
 include_recipe 'cookbooks::service'
 
 script 'download confluent key' do
@@ -42,12 +44,14 @@ bash 'install-cfn-tools' do
   SCRIPT
 end
 
+# rubocop:disable Naming/HeredocDelimiterNaming
 bash 'install gems' do
   code <<-EOH
   source /usr/local/rvm/scripts/rvm
   gem install aws-sdk keystore
   EOH
 end
+# rubocop:enable Naming/HeredocDelimiterNaming
 
 # Prepare chef-solo work area for on-boot
 directory '/var/chef/solo' do
@@ -84,7 +88,8 @@ file '/var/chef/solo/solo.rb' do
   content 'cookbook_path  ["/var/chef/solo/cookbooks-0"]'
 end
 
-[ 'eni_switcher.rb',
+[
+  'eni_switcher.rb',
   'network_config.sh.erb',
   'zk_server.rb',
   'zk_run.sh',
@@ -92,7 +97,7 @@ end
   'myid.erb'
 ].each do |file|
   cookbook_file "/usr/local/bin/#{file}" do
-    source "#{file}"
+    source file
     owner 'root'
     group 'root'
     mode '0755'
@@ -111,3 +116,4 @@ file '/etc/profile.d/keystore.sh' do
   group 'root'
   mode '0755'
 end
+# rubocop:enable Metrics/LineLength

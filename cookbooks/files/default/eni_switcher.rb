@@ -1,3 +1,5 @@
+# rubocop:disable Metrics/MethodLength, Metrics/LineLength, Metrics/AbcSize
+
 require 'erb'
 require 'aws-sdk'
 require 'trollop'
@@ -7,10 +9,12 @@ require 'net/http'
 class ENISwitcher
   attr_accessor :eni, :instance
 
-  def lookup_eni(environment, instanceaz, instance_id)
+  def lookup_eni(environment, instance_az, instance_id)
+    puts environment
+    puts instance_id
     eni_id = @ec2.describe_network_interfaces(filters: [
                                                 { name: 'tag:Name', values: ['ZOOKEEPER-' + '*'] },
-                                                { name: 'availability-zone', values: [instanceaz] },
+                                                { name: 'availability-zone', values: [instance_az] },
                                                 { name: 'status', values: ['available'] }
                                               ]).network_interfaces[0]
     if eni_id.nil?
@@ -76,13 +80,15 @@ end
 metadata_endpoint = 'http://169.254.169.254/latest/meta-data/'
 instanceid = Net::HTTP.get(URI.parse(metadata_endpoint + 'instance-id'))
 puts 'instance_id=' + instanceid
-instanceaz = Net::HTTP.get(URI.parse(metadata_endpoint + 'placement/availability-zone'))
+instance_az = Net::HTTP.get(URI.parse(metadata_endpoint + 'placement/availability-zone'))
 
 switcher = ENISwitcher.new(opts[:region])
 instance = switcher.lookup_instance(instanceid)
-eni = switcher.lookup_eni(opts[:environment], instanceaz, instance.id)
+eni = switcher.lookup_eni(opts[:environment], instance_az, instance.id)
 switcher.attach_eni(eni, instance.id)
 sleep 5
 switcher.configure_new_interface(eni.private_ip_address, instance.private_ip_address)
 eni_name = eni.tag_set.select { |tag| tag.key == 'Name' }.first.value
 File.write('/usr/local/bin/eni_name.sh', "export eni_name=#{eni_name}")
+
+# rubocop:enable Metrics/LineLength, Metrics/MethodLength, Metrics/AbcSize
