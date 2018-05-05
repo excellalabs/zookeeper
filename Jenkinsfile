@@ -3,7 +3,12 @@ pipeline {
   stages {
     stage('Commit') {
       steps {
-        sh 'whoami;pwd;rvm --version'
+        sh '''whoami;pwd;
+sudo apt-add-repository -y ppa:rael-gc/rvm
+sudo apt-get update
+sudo apt-get install rvm -y
+rvm install ruby
+'''
         sh 'ruby --version'
         sh 'bundle install'
         sh 'rubocop'
