@@ -12,7 +12,7 @@ which bundle || gem install bundler
         sh '''#packer -version
 #aws --version
 ls -la /var/lib/jenkins/apps/
-cat .bash_profile'''
+cat ~/.bash_profile'''
       }
     }
     stage('Deployment') {
