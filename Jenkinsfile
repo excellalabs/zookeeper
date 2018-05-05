@@ -25,9 +25,8 @@ pipeline {
         sh '''
           echo "start deployment"
           ami_id="$(keystore.rb retrieve --table $inventory_store --keyname ZOOKEEPER_LATEST_AMI)"
-          echo "${ami_id}"
+          echo "deploy this ami: ${ami_id}"
         '''
-        echo "${ami_id}"
       }
     }
   }
