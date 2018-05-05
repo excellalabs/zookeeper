@@ -16,8 +16,11 @@ pipeline {
           # packer build packer.json
           # ami_id="$(cat manifest.json | jq -r .builds[0].artifact_id | cut -d\':\' -f2)"
           ami_id='hello hani'
-          echo "1 ==> $ami_id"
+          echo "1 ==> ${ami_id}"
         '''
+        script {
+          ami_id='hello hani'
+        }
         echo "2 ==> ${ami_id}"
       }
     }
@@ -25,7 +28,7 @@ pipeline {
       steps {
         sh '''
           echo "start deployment"
-          echo "3 ==> deploy ami: $ami_id"
+          echo "3 ==> deploy ami: ${ami_id}"
         '''
         echo "4 ==> ${ami_id}"
       }
