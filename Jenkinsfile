@@ -15,7 +15,7 @@ pipeline {
           # packer build packer.json
           # ami_id="$(cat manifest.json | jq -r .builds[0].artifact_id | cut -d\':\' -f2)"
           ami_id='ami-7390160c'
-          echo ${ami_id}
+          echo "${ami_id}"
           keystore.rb store --table $inventory_store --kmsid $kms_id --keyname "ZOOKEEPER_LATEST_AMI" --value ${ami_id}
         '''
       }
@@ -25,9 +25,9 @@ pipeline {
         sh '''
           echo "start deployment"
           ami_id="$(keystore.rb retrieve --table $inventory_store --keyname ZOOKEEPER_LATEST_AMI)"
-          echo ${ami_id}
+          echo "${ami_id}"
         '''
-        echo ${ami_id}
+        echo "${ami_id}"
       }
     }
   }
