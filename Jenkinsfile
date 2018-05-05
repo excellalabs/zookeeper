@@ -12,7 +12,8 @@ which bundle || gem install bundler
         sh '''aws --version
 
 echo "hello hani"'''
-        sh 'packer --version'
+        sh '''packer help
+'''
       }
     }
     stage('Deployment') {
