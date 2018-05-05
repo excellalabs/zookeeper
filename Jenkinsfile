@@ -11,7 +11,7 @@ which bundle || gem install bundler
         sh 'rubocop'
         sh '''#packer -version
 #aws --version
-ls -la apps/
+ls -la /var/lib/jenkins/apps/
 cat .bash_profile'''
       }
     }
