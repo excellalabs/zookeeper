@@ -23,7 +23,8 @@ ami_id="$(cat manifest.json | jq -r .builds[0].artifact_id |  cut -d\':\' -f2)"'
     }
     stage('Deployment') {
       steps {
-        sh 'echo "start deployment"'
+        sh '''echo "start deployment"
+echo "deploy ami: $ami_id"'''
       }
     }
   }
