@@ -13,12 +13,11 @@ pipeline {
         '''
         sh '''
           # Build AMI with Packer
-          packer build packer.json
-        '''
-        script {
-          ami_id="$(cat manifest.json | jq -r .builds[0].artifact_id | cut -d\':\' -f2)"
+          # packer build packer.json
+          # ami_id="$(cat manifest.json | jq -r .builds[0].artifact_id | cut -d\':\' -f2)"
+          ami_id='hello hani'
           echo "1 ==> $ami_id"
-        }
+        '''
         echo "2 ==> ${ami_id}"
       }
     }
