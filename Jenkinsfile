@@ -14,7 +14,7 @@ which bundle || gem install bundler
 
 packer -version
 
-'''
+echo "hello hani"'''
       }
     }
     stage('Deployment') {
