@@ -7,10 +7,10 @@ pipeline {
 pwd
 which bundle || gem install bundler
 '''
-        sh 'ruby --version'
         sh 'bundle install'
         sh 'rubocop'
-        sh 'echo "packer build"'
+        sh '''packer -version
+aws --version'''
       }
     }
     stage('Deployment') {
