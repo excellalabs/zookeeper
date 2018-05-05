@@ -12,7 +12,8 @@ which bundle || gem install bundler
         sh '''aws --version
 
 echo "hello hani"'''
-        sh '''packer -v
+        sh '''# create vendor cookbooks
+berks vendor cookbooks/vendor-cookbooks
 
 '''
       }
