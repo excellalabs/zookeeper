@@ -10,7 +10,7 @@ which bundle || gem install bundler
         sh 'bundle install'
         sh 'rubocop'
         sh '''aws --version
-packer -version
+
 echo "hello hani"'''
       }
     }
