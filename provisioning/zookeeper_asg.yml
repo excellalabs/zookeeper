@@ -268,7 +268,7 @@ Resources:
           - ''
           - - ''
             - "#!/bin/bash\n"
-            - echo 'hello from userdata'
+            - "echo 'hello from userdata'\n"
             - sudo bash /usr/local/bin/zk_run.sh
             - "\n"
 Outputs:
