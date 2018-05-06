@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 pipeline {
   agent any
   stages {
@@ -25,6 +27,9 @@ pipeline {
           ami_id="$(keystore.rb retrieve --table $inventory_store --keyname ZOOKEEPER_LATEST_AMI)"
           echo "deploy this ami: ${ami_id}"
         '''
+
+        // Deploy Zookeeper
+        rake 'deploy'
       }
     }
   }
