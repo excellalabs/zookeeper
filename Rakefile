@@ -4,6 +4,8 @@ require 'erb'
 
 system('bundle', 'install', '--quiet')
 
+Dir.glob(File.join('pipeline/tasks/**/*.rake')).each { |file| load file }
+
 begin
   require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new(:spec)

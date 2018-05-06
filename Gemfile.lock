@@ -888,6 +888,7 @@ GEM
     public_suffix (3.0.2)
     rack (2.0.5)
     rainbow (3.0.0)
+    rake (12.3.1)
     rbovirt (0.1.5)
       nokogiri
       rest-client (> 1.7.0)
@@ -1019,6 +1020,7 @@ DEPENDENCIES
   berkshelf
   kitchen-ec2
   kitchen-vagrant
+  rake
   rspec
   rubocop
   serverspec
