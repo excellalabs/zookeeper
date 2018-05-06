@@ -8,7 +8,7 @@ require 'net/http'
 class ZKServer
   attr_accessor :zk_ip1, :zk_ip2, :zk_ip3
   def setup_myid(instance_az)
-    instance_ip = get_instance_ip(instance_az)
+    @instance_ip = get_instance_ip(instance_az)
     template = ERB.new File.read('/usr/local/bin/myid.erb')
     zk_id = template.result(binding)
     File.write('/var/lib/zookeeper/myid', zk_id)
@@ -30,7 +30,7 @@ class ZKServer
   end
 
   def setup_zk_config(instance_az)
-    instance_ip = get_instance_ip(instance_az)
+    @instance_ip = get_instance_ip(instance_az)
     template = ERB.new File.read('/usr/local/bin/zookeeper.properties.erb')
     conf = template.result(binding)
     puts conf
