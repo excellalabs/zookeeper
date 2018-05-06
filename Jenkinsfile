@@ -5,7 +5,7 @@ pipeline {
       steps {
         sh 'which bundle || gem install bundler'
         sh 'bundle install'
-        sh 'rubocop'
+        rake rubocop
         sh '''
           # create vendor cookbooks
           berks vendor cookbooks/vendor-cookbooks
@@ -28,4 +28,9 @@ pipeline {
       }
     }
   }
+}
+
+// Helper function for rake
+def rake(String command) {
+  sh "bundle exec rake $command"
 }
