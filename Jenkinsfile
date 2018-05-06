@@ -5,7 +5,7 @@ pipeline {
       steps {
         sh 'which bundle || gem install bundler'
         sh 'bundle install'
-        rake rubocop
+        rake 'rubocop'
         sh '''
           # create vendor cookbooks
           berks vendor cookbooks/vendor-cookbooks
