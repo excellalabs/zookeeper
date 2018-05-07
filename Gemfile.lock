@@ -637,6 +637,8 @@ GEM
     diff-lcs (1.3)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
+    eat (0.1.8)
+      httpclient
     erubis (2.7.0)
     excon (0.62.0)
     faraday (0.15.0)
@@ -1018,6 +1020,7 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk
   berkshelf
+  eat
   kitchen-ec2
   kitchen-vagrant
   rake
@@ -1025,6 +1028,9 @@ DEPENDENCIES
   rubocop
   serverspec
   test-kitchen
+
+RUBY VERSION
+   ruby 2.4.0p0
 
 BUNDLED WITH
    1.16.1

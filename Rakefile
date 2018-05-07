@@ -1,10 +1,17 @@
+# frozen_string_literal: true
+
 $LOAD_PATH << './pipeline/lib'
-require 'json'
-require 'erb'
+# require 'json'
+# require 'erb'
 
-system('bundle', 'install', '--quiet')
+# Load any .rake files under the current directory
+Dir.glob('**/*.rake').each do |task_file|
+  load task_file
+end
 
-Dir.glob(File.join('pipeline/tasks/**/*.rake')).each { |file| load file }
+# system('bundle', 'install', '--quiet')
+
+# Dir.glob(File.join('**/*.rake')).each { |file| load file }
 
 begin
   require 'rspec/core/rake_task'
