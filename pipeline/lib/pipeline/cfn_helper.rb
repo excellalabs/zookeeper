@@ -16,6 +16,7 @@ module Pipeline
       template_path = 'provisioning'
       {
         stack_name: stack_name,
+        capabilities: %w[CAPABILITY_IAM CAPABILITY_NAMED_IAM],
         template_body: File.read("#{template_path}/#{template_name}.yml"),
         parameters: stack_parameters
       }
