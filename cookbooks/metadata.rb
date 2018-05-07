@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 name 'cookbooks'
 maintainer 'Ali Jafari | Excella Data Lab'
 maintainer_email 'ali.jafari@excella.com'

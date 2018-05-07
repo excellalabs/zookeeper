@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # include_recipe 'cookbooks::service'
 
 # eth1_addresses = node.network.interfaces.eth1.addresses

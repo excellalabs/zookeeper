@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # rubocop:disable Metrics/MethodLength, Metrics/LineLength, Metrics/AbcSize
 
 require 'erb'

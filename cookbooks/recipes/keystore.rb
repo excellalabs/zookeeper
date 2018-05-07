@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 region = 'us-east-1'
 store_name = 'Pipeline_Key_Store'
 kms_id = 'fc112e37-27c7-4e56-b6e7-6744e226d07e'
