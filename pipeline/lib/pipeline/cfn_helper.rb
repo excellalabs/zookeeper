@@ -35,7 +35,7 @@ module Pipeline
       @cloudformation.wait_until(waiter_name, stack_name: stack_name) do |w|
         w.max_attempts = nil
         w.before_wait do
-          throw :failure if Time.now - started_at > 600
+          throw :failure if Time.now - started_at > 3600
         end
       end
 

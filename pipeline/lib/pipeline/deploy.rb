@@ -47,7 +47,8 @@ module Pipeline
         parameter('Subnet2', 'subnet-f9ecf5a4'),
         parameter('Subnet3', 'subnet-d88a7ebf'),
         parameter('PipelineInstanceId', 'unspecified'),
-        parameter('InstanceSecgroup', 'sg-77fa673e')
+        parameter('InstanceSecgroup', 'sg-77fa673e'),
+        parameter('InstanceType', 't2.small')
       ]
     end
 

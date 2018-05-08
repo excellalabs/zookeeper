@@ -48,6 +48,10 @@ Parameters:
     Description: Instance SecurityGroup
     Type: String
     Default: sg-77fa673e
+  InstanceType:
+    Description: Instance SecurityGroup
+    Type: String
+    Default: t2.micro
 Resources:
   NetworkInterface1:
     Type: AWS::EC2::NetworkInterface
@@ -257,7 +261,8 @@ Resources:
       ImageId:
         Ref: AmiId
       InstanceMonitoring: true
-      InstanceType: t2.micro
+      InstanceType:
+        Ref: InstanceType
       KeyName:
         Ref: KeyName
       SecurityGroups:
