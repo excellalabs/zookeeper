@@ -22,10 +22,10 @@ class ENISwitcher
     if eni_id.nil?
       error = 'No available ENI. Marking instance unhealthy'
       puts error
-      # @asg.set_instance_health(
-      #   health_status: 'Unhealthy',
-      #   instance_id: instance_id
-      # )
+      @asg.set_instance_health(
+        health_status: 'Unhealthy',
+        instance_id: instance_id
+      )
       raise error
     end
     @resource.network_interface(eni_id.network_interface_id)
@@ -37,7 +37,7 @@ class ENISwitcher
 
   def initialize(region)
     @ec2 = Aws::EC2::Client.new(region: region)
-    # @asg = Aws::AutoScaling::Client.new(region: region)
+    @asg = Aws::AutoScaling::Client.new(region: region)
     @resource = Aws::EC2::Resource.new(client: @ec2)
   end
 
