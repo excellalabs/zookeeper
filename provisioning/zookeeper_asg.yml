@@ -218,7 +218,7 @@ Resources:
         MinInstancesInService:
           Ref: MinInstancesInService
         MaxBatchSize: 1
-        PauseTime: PT20M
+        PauseTime: PT10M
         WaitOnResourceSignals: true
     Properties:
       AvailabilityZones:
@@ -272,9 +272,16 @@ Resources:
           Fn::Join:
           - ''
           - - ''
-            - "#!/bin/bash\n"
+            - "#!/bin/bash -e\n"
             - "echo 'hello from userdata'\n"
-            - sudo bash /usr/local/bin/zk_run.sh
+            - "sudo bash /usr/local/bin/zk_run.sh\n"
+            - 'echo "hello userdata - running by $(whoami)"'
+            - "\n"
+            - "cfn-signal -e 0 --stack "
+            - Ref: AWS::StackName
+            - " --resource InstanceAsg "
+            - " --region "
+            - Ref: AWS::Region
             - "\n"
 Outputs:
   NetworkInterfaceIp1:
