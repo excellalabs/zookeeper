@@ -34,22 +34,14 @@ module Pipeline
     end
 
     def stack_parameters
-      [
-        parameter('VpcId', 'vpc-bfade9c4'),
-        parameter('AmiId', 'ami-064bcd79'),
-        parameter('AsgSubnets',
-                  'subnet-5a7dd010,subnet-f9ecf5a4,subnet-d88a7ebf'),
-        parameter('AsgSubnetAzs', 'us-east-1a,us-east-1b,us-east-1c'),
-        parameter('KeyName', 'devops-ex'),
-        parameter('InstanceCount', '3'),
-        parameter('MinInstancesInService', '1'),
-        parameter('Subnet1', 'subnet-5a7dd010'),
-        parameter('Subnet2', 'subnet-f9ecf5a4'),
-        parameter('Subnet3', 'subnet-d88a7ebf'),
-        parameter('PipelineInstanceId', 'unspecified'),
-        parameter('InstanceSecgroup', 'sg-77fa673e'),
-        parameter('InstanceType', 't2.small')
-      ]
+      # get the params and create array
+      cfn_params = []
+      @params[:cfn_params].each do |param|
+        param.each do |k, v|
+          cfn_params << parameter(k, v)
+        end
+      end
+      cfn_params
     end
 
     def wait_and_save(waiter_name)
