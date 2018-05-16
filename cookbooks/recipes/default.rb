@@ -96,7 +96,8 @@ end
   'zk_server.rb',
   'zk_run.sh',
   'zookeeper.properties.erb',
-  'myid.erb'
+  'myid.erb',
+  'attach_ebs.py'
 ].each do |file|
   cookbook_file "/usr/local/bin/#{file}" do
     source file

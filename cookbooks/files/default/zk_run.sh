@@ -12,8 +12,8 @@ source /usr/local/bin/eni_name.sh;
 sleep 10;
 sudo ruby /usr/local/bin/zk_server.rb;
 sleep 10;
-sudo service zookeeper restart
-
-# /usr/local/bin/attach_ebs.py $eni_name /dev/xvdg /var/lib/zookeeper;
+echo "zk_run run by $(whoami)";
+/usr/local/bin/attach_ebs.py $eni_name /dev/sda1 /var/lib/zookeeper;
 # sudo echo ExDataLab > /etc/vdm_env;
 # sudo chown ubuntu:ubuntu /etc/vdm_env;
+sudo service zookeeper restart
