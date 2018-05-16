@@ -36,6 +36,21 @@ end
   package pkg
 end
 
+bash 'install python 2.7' do
+  code <<-EOH
+  sudo apt update
+  sudo apt dist-upgrade -y
+  sudo apt install python2.7 python-pip -y
+  sudo apt install python3-pip -y
+  EOH
+end
+
+python_runtime '2'
+
+python_package 'awscli' do
+  version '1.14.50'
+end
+
 bash 'install-cfn-tools' do
   code <<-SCRIPT
   apt-get update
