@@ -36,6 +36,7 @@ end
   package pkg
 end
 
+# rubocop:disable Naming/HeredocDelimiterNaming
 bash 'install python 2.7' do
   code <<-EOH
   sudo apt update
@@ -61,7 +62,6 @@ bash 'install-cfn-tools' do
   SCRIPT
 end
 
-# rubocop:disable Naming/HeredocDelimiterNaming
 bash 'install gems' do
   code <<-EOH
   source /usr/local/rvm/scripts/rvm
