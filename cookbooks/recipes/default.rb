@@ -8,7 +8,8 @@
 
 # rubocop:disable Metrics/LineLength
 
-include_recipe 'cookbooks::service'
+# include_recipe 'cookbooks::service'
+include_recipe 'lvm::default'
 
 script 'download confluent key' do
   interpreter 'bash'

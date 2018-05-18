@@ -25,3 +25,6 @@ chef_version '>= 12.14' if respond_to?(:chef_version)
 
 # depends 'confluent-cookbook', '~> 0.4.0'
 # depends 'confluent-cookbook', '= 0.3.0'
+depends 'poise-python'
+depends 'filesystem'
+depends 'lvm'
