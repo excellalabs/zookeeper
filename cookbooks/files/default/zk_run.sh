@@ -10,6 +10,6 @@ sleep 10
 ruby /usr/local/bin/zk_server.rb
 sleep 10
 echo "eni_name: ${eni_name}"
-/usr/local/bin/attach_ebs.py $eni_name /dev/xvdg /var/lib/zookeeper;
+# /usr/local/bin/attach_ebs.py $eni_name /dev/xvdg /var/lib/zookeeper;
 
 service zookeeper restart
