@@ -58,7 +58,7 @@ def create_volume(conn, zone, tag):
     volume = conn.create_volume(
             volume_type='gp2',
             encrypted='true',
-            size='100',
+            size='30',
             zone=zone)
 
     wait_volume(conn, volume, 'available')
