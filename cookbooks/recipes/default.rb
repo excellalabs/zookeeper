@@ -49,8 +49,20 @@ end
 
 python_runtime '2'
 
+%w[kazoo dnspython boto].each do |package|
+  python_package package
+end
+
 python_package 'awscli' do
   version '1.14.50'
+end
+
+bash 'link correct aws version' do
+  code <<-EOH
+  rm -rf /usr/bin/aws
+  chmod +x /usr/local/bin/aws
+  ln -s /usr/local/bin/aws /usr/bin/aws
+  EOH
 end
 
 bash 'install-cfn-tools' do
