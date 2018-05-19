@@ -6,21 +6,23 @@ pipeline {
     choice(
       choices: 'NO\YES',
       description: 'Build AMI feature toggle',
-      name: 'BUILD_AMI'
-    )
+      name: 'BUILD_AMI')
   }
   stages {
+
     stage('Commit') {
       steps {
         sh 'which bundle || gem install bundler'
         sh 'bundle install'
       }
     }
+
     stage('Code Analysis') {
       steps {
         rake 'rubocop'
       }
     }
+
     stage('Zookeeper AMI') {
       when {
         expression { params.BUILD_AMI == 'YES' }
@@ -41,6 +43,7 @@ pipeline {
         '''
       }
     }
+
     stage('Deployment') {
       steps {
         sh '''
