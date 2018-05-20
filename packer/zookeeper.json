@@ -32,7 +32,7 @@
     {
       "type": "chef-solo",
       "cookbook_paths": ["./cookbooks/vendor-cookbooks/"],
-      "run_list": ["java::default", "cookbooks::default"],
+      "run_list": ["java::default", "zookeeper-config::default"],
       "json": { "foo": "bar" },
       "prevent_sudo": false,
       "skip_install": false

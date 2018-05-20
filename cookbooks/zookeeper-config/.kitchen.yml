@@ -12,5 +12,5 @@ suites:
   - name: zookeeper
     run_list:
       - "java::default"
-      - "cookbooks::default"
+      - "zookeeper-config::default"
     attributes:

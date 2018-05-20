@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
-#
-# Cookbook:: cookbooks
+# Cookbook:: zookeeper-config
 # Recipe:: default
 #
 # Copyright:: 2018, Ali Jafari - Excella Data Lab, All Rights Reserved.
 
 # rubocop:disable Metrics/LineLength
 
-include_recipe 'cookbooks::service'
+include_recipe 'zookeeper-config::service'
 include_recipe 'lvm::default'
 
 script 'download confluent key' do
@@ -96,27 +95,27 @@ directory '/var/chef/solo/cookbooks-0' do
 end
 
 # script 'save cookbooks' do
-script 'save cookbooks' do
-  # for vagrant
-  interpreter 'bash'
-  code 'cp -Rp /tmp/kitchen/cache/cookbooks/cookbooks/ /var/chef/solo/cookbooks-0'
-  only_if { ::Dir.exist?('/tmp/kitchen/cache/cookbooks/cookbooks/') }
-end
+# script 'save cookbooks' do
+#   # for vagrant
+#   interpreter 'bash'
+#   code 'cp -Rp /tmp/kitchen/cache/cookbooks/cookbooks/ /var/chef/solo/cookbooks-0'
+#   only_if { ::Dir.exist?('/tmp/kitchen/cache/cookbooks/cookbooks/') }
+# end
 
-script 'save cookbooks' do
-  interpreter 'bash'
-  # ec2
-  code 'cp -Rp /tmp/packer-chef-solo/local-mode-cache/cache/cookbooks/cookbooks/ /var/chef/solo/cookbooks-0'
-  not_if { node['test_kitchen'] }
-  only_if { ::Dir.exist?('/tmp/packer-chef-solo/local-mode-cache/cache/cookbooks/cookbooks/') }
-end
+# script 'save cookbooks' do
+#   interpreter 'bash'
+#   # ec2
+#   code 'cp -Rp /tmp/packer-chef-solo/local-mode-cache/cache/cookbooks/cookbooks/ /var/chef/solo/cookbooks-0'
+#   not_if { node['test_kitchen'] }
+#   only_if { ::Dir.exist?('/tmp/packer-chef-solo/local-mode-cache/cache/cookbooks/cookbooks/') }
+# end
 
-file '/var/chef/solo/solo.rb' do
-  owner 'root'
-  group 'root'
-  mode '0400'
-  content 'cookbook_path  ["/var/chef/solo/cookbooks-0"]'
-end
+# file '/var/chef/solo/solo.rb' do
+#   owner 'root'
+#   group 'root'
+#   mode '0400'
+#   content 'cookbook_path  ["/var/chef/solo/cookbooks-0"]'
+# end
 
 [
   'eni_switcher.rb',

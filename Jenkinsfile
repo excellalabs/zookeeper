@@ -30,11 +30,13 @@ pipeline {
       steps {
         sh '''
           # create vendor cookbooks
-          berks vendor cookbooks/vendor-cookbooks
+          cd cookbooks/zookeeper-config/
+          berks vendor ../vendor-cookbooks
+          cd ../..
         '''
         sh '''
           # Build AMI with Packer
-          packer build packer.json
+          packer build packer/zookeeper.json
         '''
         sh '''
           # Save ami_id

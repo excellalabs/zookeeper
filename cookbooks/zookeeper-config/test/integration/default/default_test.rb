@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Inspec test for recipe cookbooks::default
+# Inspec test for recipe zookeeper-config::default
 
 # The Inspec reference, with examples and extensive documentation, can be
 # found at http://inspec.io/docs/reference/resources/
