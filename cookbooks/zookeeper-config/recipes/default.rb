@@ -5,8 +5,6 @@
 #
 # Copyright:: 2018, Ali Jafari - Excella Data Lab, All Rights Reserved.
 
-# rubocop:disable Metrics/LineLength
-
 include_recipe 'zookeeper-config::service'
 include_recipe 'lvm::default'
 
@@ -136,5 +134,3 @@ bash 'Download prometheus jar script' do
   not_if { ::File.exist?('/opt/jmx_prometheus_javaagent-0.6.jar') }
   not_if { node['test_kitchen'] }
 end
-
-# rubocop:enable Metrics/LineLength
