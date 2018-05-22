@@ -90,33 +90,6 @@ directory '/var/chef/solo' do
   mode '0755'
 end
 
-directory '/var/chef/solo/cookbooks-0' do
-  mode '0644'
-end
-
-# script 'save cookbooks' do
-# script 'save cookbooks' do
-#   # for vagrant
-#   interpreter 'bash'
-#   code 'cp -Rp /tmp/kitchen/cache/cookbooks/cookbooks/ /var/chef/solo/cookbooks-0'
-#   only_if { ::Dir.exist?('/tmp/kitchen/cache/cookbooks/cookbooks/') }
-# end
-
-# script 'save cookbooks' do
-#   interpreter 'bash'
-#   # ec2
-#   code 'cp -Rp /tmp/packer-chef-solo/local-mode-cache/cache/cookbooks/cookbooks/ /var/chef/solo/cookbooks-0'
-#   not_if { node['test_kitchen'] }
-#   only_if { ::Dir.exist?('/tmp/packer-chef-solo/local-mode-cache/cache/cookbooks/cookbooks/') }
-# end
-
-# file '/var/chef/solo/solo.rb' do
-#   owner 'root'
-#   group 'root'
-#   mode '0400'
-#   content 'cookbook_path  ["/var/chef/solo/cookbooks-0"]'
-# end
-
 [
   'eni_switcher.rb',
   'network_config.sh.erb',
@@ -146,4 +119,22 @@ file '/etc/profile.d/keystore.sh' do
   group 'root'
   mode '0755'
 end
+
+# prometheus setup
+cookbook_file '/opt/prometheus.yml' do
+  source 'prometheus.yml'
+  owner 'root'
+  group 'root'
+  mode '0755'
+end
+
+bash 'Download prometheus jar script' do
+  code <<-SCRIPT
+    /usr/bin/aws s3api get-object --bucket ex-data-lab-binaries \
+      --key jmx_prometheus_javaagent-0.6.jar /opt/jmx_prometheus_javaagent-0.6.jar
+    SCRIPT
+  not_if { ::File.exist?('/opt/jmx_prometheus_javaagent-0.6.jar') }
+  not_if { node['test_kitchen'] }
+end
+
 # rubocop:enable Metrics/LineLength
