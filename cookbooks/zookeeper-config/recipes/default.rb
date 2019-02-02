@@ -25,16 +25,32 @@ script 'apt-get update' do
   code 'apt-get update'
 end
 
+# rubocop:disable Naming/HeredocDelimiterNaming
+bash 'install rvm' do
+  code <<-EOH
+  sudo apt-get purge ruby
+  sudo apt-get install software-properties-common
+  sudo apt-add-repository -y ppa:rael-gc/rvm
+  sudo apt-get update
+  sudo apt-get install rvm -y
+  sudo /usr/share/rvm/bin/rvm install ruby 2.5.3
+  EOH
+end
+
+bash 'install gems' do
+  code <<-EOH
+  source /usr/share/rvm/scripts/rvm
+  rvm use 2.5.3
+  gem install aws-sdk keystore
+  EOH
+end
+
 [
   'awscli',
-  'software-properties-common',
-  'ruby',
   'confluent-platform-oss-2.11'
 ].each do |pkg|
   package pkg
 end
-
-# rubocop:disable Naming/HeredocDelimiterNaming
 
 # python_runtime '2'
 python_runtime '2' do
@@ -69,12 +85,6 @@ bash 'install-cfn-tools' do
   SCRIPT
 end
 
-bash 'install gems' do
-  code <<-EOH
-  source /usr/local/rvm/scripts/rvm
-  gem install aws-sdk keystore
-  EOH
-end
 # rubocop:enable Naming/HeredocDelimiterNaming
 
 # Prepare chef-solo work area for on-boot
