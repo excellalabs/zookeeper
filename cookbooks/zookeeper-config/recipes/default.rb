@@ -34,6 +34,7 @@ bash 'install rvm' do
   sudo apt-get update
   sudo apt-get install rvm -y
   sudo /usr/share/rvm/bin/rvm install ruby 2.5.3
+  rvm --default use 2.5.3
   EOH
 end
 
