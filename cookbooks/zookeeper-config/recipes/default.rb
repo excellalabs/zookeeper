@@ -34,14 +34,13 @@ bash 'install rvm' do
   sudo apt-get update
   sudo apt-get install rvm -y
   sudo /usr/share/rvm/bin/rvm install ruby 2.5.3
-  rvm --default use 2.5.3
   EOH
 end
 
 bash 'install gems' do
   code <<-EOH
   source /usr/share/rvm/scripts/rvm
-  rvm use 2.5.3
+  rvm --default use 2.5.3
   gem install aws-sdk keystore
   EOH
 end
