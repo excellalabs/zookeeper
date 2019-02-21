@@ -34,7 +34,7 @@ task :deploy do
     'Subnet3' => subnet3,
     'PipelineInstanceId' => 'unspecified',
     'InstanceSecgroup' => ks.query?('PRIVATE_SECURITY_GROUP'),
-    'InstanceType' => 't2.micro'
+    'InstanceType' => 't2.small'
   ]
 
   Pipeline::Deploy.new(
