@@ -4,22 +4,18 @@ Parameters:
   VpcId:
     Description: VPC to deploy to
     Type: String
-    Default: vpc-bfade9c4
   AmiId:
     Description: AMI ID to launch in ASG
     Type: String
   AsgSubnets:
     Description: Subnets in which ASG should be hosted
     Type: CommaDelimitedList
-    Default: subnet-5a7dd010,subnet-f9ecf5a4,subnet-d88a7ebf
   AsgSubnetAzs:
     Description: Availability zones in which ASG should be hosted
     Type: CommaDelimitedList
-    Default: us-east-1a,us-east-1b,us-east-1c
   KeyName:
     Description: EC2 key name to use for instances
     Type: String
-    Default: devops-ex
   InstanceCount:
     Description: Number of instances to provision
     Type: String
@@ -31,15 +27,12 @@ Parameters:
   Subnet1:
     Description: Subnet for ENI 1
     Type: String
-    Default: subnet-5a7dd010
   Subnet2:
     Description: Subnet for ENI 2
     Type: String
-    Default: subnet-f9ecf5a4
   Subnet3:
     Description: Subnet for ENI 3
     Type: String
-    Default: subnet-d88a7ebf
   PipelineInstanceId:
     Description: Pipeline instance ID
     Type: String
@@ -47,7 +40,6 @@ Parameters:
   InstanceSecgroup:
     Description: Instance SecurityGroup
     Type: String
-    Default: sg-77fa673e
   InstanceType:
     Description: Instance SecurityGroup
     Type: String
