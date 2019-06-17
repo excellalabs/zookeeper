@@ -28,7 +28,6 @@ end
 # rubocop:disable Naming/HeredocDelimiterNaming
 bash 'install rvm' do
   code <<-EOH
-  sudo apt-get purge ruby
   sudo apt-get install software-properties-common
   sudo apt-add-repository -y ppa:rael-gc/rvm
   sudo apt-get update
@@ -47,7 +46,8 @@ end
 
 [
   'awscli',
-  'confluent-platform-oss-2.11'
+  'confluent-platform-oss-2.11',
+  'ruby'
 ].each do |pkg|
   package pkg
 end
