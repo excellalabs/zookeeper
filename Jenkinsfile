@@ -11,15 +11,15 @@ pipeline {
   stages {
 
     stage('Commit') {
-      steps {
-        sh 'rvm list'
-        sh '''
-          rvm use 2.5.3
-          ruby --version
-          which bundle || gem install bundler -v 1.17.3
-          bundle install
-        '''
-      }
+
+      sh('rm -rf ./*')
+      properties([
+        disableConcurrentBuilds(),
+        pipelineTriggers([pollSCM('* * * * *')]),
+      ])
+
+      checkout scm
+      rvm '2.5.3'
     }
 
     stage('Code Analysis') {
@@ -69,4 +69,16 @@ pipeline {
 // Helper function for rake
 def rake(String command) {
   sh "bundle exec rake $command"
+}
+
+def rvm(String version) {
+  sh returnStdout: false, script: """#!/bin/bash --login
+    source /usr/share/rvm/scripts/rvm && \
+      rvm use --install --create ${version} && \
+      export | egrep -i "(ruby|rvm)" > rvm.env
+    rvm use default ${version}
+    rvm alias create default ruby-${version}
+    which bundle || gem install bundler -v 1.17.3
+    bundle install
+  """
 }
