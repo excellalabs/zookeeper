@@ -12,12 +12,7 @@ pipeline {
 
     stage('Commit') {
 
-      sh('rm -rf ./*')
-      properties([
-        disableConcurrentBuilds(),
-        pipelineTriggers([pollSCM('* * * * *')]),
-      ])
-
+      sh 'rm -rf ./*'
       checkout scm
       rvm '2.5.3'
     }
