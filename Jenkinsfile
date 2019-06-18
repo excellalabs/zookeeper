@@ -49,11 +49,11 @@ pipeline {
 
     stage('Deployment') {
       steps {
-        sh '''
-          echo "start deployment"
-          ami_id="$(keystore.rb retrieve --table xsp-secret-store-KeystoreTable-J70V019TOWVB --keyname ZOOKEEPER_LATEST_AMI)"
-          echo "deploy this ami: ${ami_id}"
-        '''
+        // sh '''
+        //   echo "start deployment"
+        //   ami_id="$(keystore.rb retrieve --table xsp-secret-store-KeystoreTable-J70V019TOWVB --keyname ZOOKEEPER_LATEST_AMI)"
+        //   echo "deploy this ami: ${ami_id}"
+        // '''
 
         // Deploy Zookeeper
         rake 'deploy'
