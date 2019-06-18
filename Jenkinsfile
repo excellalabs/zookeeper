@@ -12,8 +12,8 @@ pipeline {
 
     stage('Commit') {
       steps {
-        sh 'rm -rf ./*'
-        checkout scm
+        // sh 'rm -rf ./*'
+        // checkout scm
         rvm '2.5.3'
       }
     }
@@ -64,7 +64,14 @@ pipeline {
 
 // Helper function for rake
 def rake(String command) {
-  sh "bundle exec rake $command"
+  sh returnStdout: false, script: """#!/bin/bash --login
+    source /usr/share/rvm/scripts/rvm && \
+      rvm use --install --create 2.5.3 && \
+      export | egrep -i "(ruby|rvm)" > rvm.env
+    rvm use default 2.5.3
+    rvm alias create default ruby-2.5.3
+    bundle exec rake $command
+  """
 }
 
 def rvm(String version) {
