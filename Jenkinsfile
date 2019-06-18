@@ -12,7 +12,8 @@ pipeline {
 
     stage('Commit') {
       steps {
-        sh 'which bundle || gem install bundler'
+        sh 'ruby --version'
+        sh 'which bundle || gem install bundler -v 1.17.3'
         sh 'bundle install'
       }
     }
