@@ -12,6 +12,7 @@ pipeline {
 
     stage('Commit') {
       steps {
+        sh 'rvm use 2.5.3'
         sh 'ruby --version'
         sh 'which bundle || gem install bundler -v 1.17.3'
         sh 'bundle install'
