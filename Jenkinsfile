@@ -11,10 +11,11 @@ pipeline {
   stages {
 
     stage('Commit') {
-
-      sh 'rm -rf ./*'
-      checkout scm
-      rvm '2.5.3'
+      steps {
+        sh 'rm -rf ./*'
+        checkout scm
+        rvm '2.5.3'
+      }
     }
 
     stage('Code Analysis') {
