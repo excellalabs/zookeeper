@@ -114,8 +114,8 @@ end
 
 # setup keystore env
 vars = StringIO.new
-vars << "export inventory_store=Pipeline_Key_Store\n"
-vars << "export kms_id=fc112e37-27c7-4e56-b6e7-6744e226d07e\n"
+vars << "export inventory_store=xsp-secret-store-KeystoreTable-J70V019TOWVB\n"
+vars << "export kms_id=2ef14fee-bc34-4ada-9063-ffdb931f236f\n"
 vars << "export AWS_DEFAULT_REGION=us-east-1\n"
 
 file '/etc/profile.d/keystore.sh' do
