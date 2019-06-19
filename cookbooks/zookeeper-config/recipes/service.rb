@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-user 'zookeeper'
+user 'zookeeper' do
+  home '/var/lib/zookeeper'
+end
 group 'zookeeper'
 
 cookbook_file '/etc/systemd/system/zookeeper.service' do
