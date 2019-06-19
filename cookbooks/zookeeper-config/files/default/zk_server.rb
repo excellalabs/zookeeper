@@ -18,9 +18,9 @@ class ZKServer
   end
 
   def initialize(region)
-    @zk_ip1 = '172.31.1.100'
-    @zk_ip2 = '172.31.2.100'
-    @zk_ip3 = '172.31.3.100'
+    @zk_ip1 = '172.31.64.200'
+    @zk_ip2 = '172.31.48.200'
+    @zk_ip3 = '172.31.0.200'
   end
 
   def get_instance_ip(instance_az)
