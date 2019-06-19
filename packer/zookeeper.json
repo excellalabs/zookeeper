@@ -1,4 +1,9 @@
 {
+  "variables": {
+    "zk_1_ip": "172.31.1.100",
+    "zk_2_ip": "172.31.2.100",
+    "zk_3_ip": "172.31.3.100"
+  },
   "builders": [{
     "type": "amazon-ebs",
     "region": "us-east-1",
@@ -13,7 +18,19 @@
       "type": "chef-solo",
       "cookbook_paths": ["./cookbooks/vendor-cookbooks/"],
       "run_list": ["java::default", "zookeeper-config::default"],
-      "json": { "foo": "bar" },
+      "json": {
+        "zookeeper": {
+          "node_1": {
+            "ip": "{{ user `zk_1_ip` }}"
+          },
+          "node_2": {
+            "ip": "{{ user `zk_2_ip` }}"
+          },
+          "node_3": {
+            "ip": "{{ user `zk_3_ip` }}"
+          }
+        }
+      },
       "prevent_sudo": false,
       "skip_install": false
     }

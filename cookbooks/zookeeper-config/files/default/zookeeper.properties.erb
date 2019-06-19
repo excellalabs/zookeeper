@@ -3,8 +3,8 @@ dataDir=/var/lib/zookeeper/
 clientPort=2181
 initLimit=5
 syncLimit=2
-server.1=<%= @instance_ip == '10.100.1.100' ? '0.0.0.0' : '10.100.1.100' %>:2888:3888
-server.2=<%= @instance_ip == '10.100.2.100' ? '0.0.0.0' : '10.100.2.100' %>:2888:3888
-server.3=<%= @instance_ip == '10.100.3.100' ? '0.0.0.0' : '10.100.3.100' %>:2888:3888
+server.1=<%= @instance_ip == '172.31.1.100' ? '0.0.0.0' : '172.31.1.100' %>:2888:3888
+server.2=<%= @instance_ip == '172.31.2.100' ? '0.0.0.0' : '172.31.2.100' %>:2888:3888
+server.3=<%= @instance_ip == '172.31.3.100' ? '0.0.0.0' : '172.31.3.100' %>:2888:3888
 autopurge.snapRetainCount=3
 autopurge.purgeInterval=24

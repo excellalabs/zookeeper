@@ -50,7 +50,7 @@ Resources:
     Properties:
       SubnetId:
         Ref: Subnet1
-      PrivateIpAddress: 10.100.1.100
+      PrivateIpAddress: 172.31.1.100
       Description: ENI for ZK ID 1
       GroupSet:
       - Ref: InstanceSecgroup
@@ -62,7 +62,7 @@ Resources:
     Properties:
       SubnetId:
         Ref: Subnet2
-      PrivateIpAddress: 10.100.2.100
+      PrivateIpAddress: 172.31.2.100
       Description: ENI for ZK ID 2
       GroupSet:
       - Ref: InstanceSecgroup
@@ -74,7 +74,7 @@ Resources:
     Properties:
       SubnetId:
         Ref: Subnet3
-      PrivateIpAddress: 10.100.3.100
+      PrivateIpAddress: 172.31.3.100
       Description: ENI for ZK ID 3
       GroupSet:
       - Ref: InstanceSecgroup
