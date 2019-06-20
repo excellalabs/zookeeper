@@ -37,17 +37,11 @@ end
 #   EOH
 # end
 
-# bash 'install gems' do
-#   code <<-EOH
-#   source /usr/share/rvm/scripts/rvm
-#   rvm --default use 2.5.3
-#   gem install aws-sdk keystore
-#   EOH
-# end
-
 bash 'install gems' do
   code <<-EOH
-  gem install aws-sdk keystore
+    source /usr/share/rvm/scripts/rvm
+    rvm --default use 2.5.3
+    gem install aws-sdk keystore trollop
   EOH
 end
 
