@@ -43,6 +43,8 @@ bash 'install gems' do
     rvm --default use 2.5.3
     gem install aws-sdk keystore trollop
   EOH
+  user 'root'
+  group 'root'
 end
 
 [

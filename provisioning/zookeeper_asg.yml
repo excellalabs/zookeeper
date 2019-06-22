@@ -183,19 +183,14 @@ Resources:
             - cloudwatch:GetMetricStatistics
             - cloudwatch:ListMetrics
             - cloudwatch:PutMetricData
-            - ec2:Describe*
-            - ec2:List*
             - kms:Decrypt
             - kms:Get*
             - kms:List*
             - dynamodb:*
             - cloudformation:SignalResource
-            - ec2:AttachVolume
-            - ec2:CreateVolume
-            - ec2:CreateTags
-            - ec2:DeleteTags
-            - ec2:AttachNetworkInterface
-            - ec2:DetachNetworkInterface
+            # - ec2:Describe*
+            # - ec2:List*
+            - ec2:*
             - autoscaling:SetInstanceHealth
             Resource: "*"
   InstanceProfile:
