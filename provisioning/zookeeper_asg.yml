@@ -188,9 +188,18 @@ Resources:
             - kms:List*
             - dynamodb:*
             - cloudformation:SignalResource
-            # - ec2:Describe*
-            # - ec2:List*
-            - ec2:*
+            # - ec2:*
+            - ec2:Describe*
+            - ec2:List*
+            - ec2:AttachVolume
+            - ec2:CreateVolume
+            - ec2:CreateTags
+            - ec2:DeleteTags
+            - ec2:AllocateAddress
+            - ec2:AssociateAddress
+            - ec2:AttachNetworkInterface
+            - ec2:CreateNetworkInterface
+            - ec2:DetachNetworkInterface
             - autoscaling:SetInstanceHealth
             Resource: "*"
   InstanceProfile:
@@ -262,8 +271,9 @@ Resources:
           - - ''
             - "#!/bin/bash --login\n"
             - "echo 'hello from userdata'\n"
+            - "ruby --version \n"
             - "rvm use 2.5.3\n"
-            - "gem install aws-sdk keystore trollop\n"
+            # - "gem install aws-sdk keystore trollop\n"
             - "ruby /usr/local/bin/eni_switcher.rb\n"
             - "sleep 20\n"
             - "source /usr/local/bin/eni_name.sh\n"
