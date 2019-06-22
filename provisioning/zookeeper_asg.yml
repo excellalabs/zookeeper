@@ -183,17 +183,22 @@ Resources:
             - cloudwatch:GetMetricStatistics
             - cloudwatch:ListMetrics
             - cloudwatch:PutMetricData
-            - ec2:Describe*
-            - ec2:List*
             - kms:Decrypt
             - kms:Get*
             - kms:List*
             - dynamodb:*
             - cloudformation:SignalResource
+            # - ec2:*
+            - ec2:Describe*
+            - ec2:List*
             - ec2:AttachVolume
             - ec2:CreateVolume
             - ec2:CreateTags
+            - ec2:DeleteTags
+            - ec2:AllocateAddress
+            - ec2:AssociateAddress
             - ec2:AttachNetworkInterface
+            - ec2:CreateNetworkInterface
             - ec2:DetachNetworkInterface
             - autoscaling:SetInstanceHealth
             Resource: "*"
@@ -264,10 +269,20 @@ Resources:
           Fn::Join:
           - ''
           - - ''
-            - "#!/bin/bash -e\n"
+            - "#!/bin/bash --login\n"
             - "echo 'hello from userdata'\n"
-            - "sudo bash /usr/local/bin/zk_run.sh\n"
-            - 'echo "hello userdata - running by $(whoami)"'
+            - "ruby --version \n"
+            - "rvm use 2.5.3\n"
+            - "gem install aws-sdk keystore trollop\n"
+            - "ruby /usr/local/bin/eni_switcher.rb\n"
+            - "sleep 20\n"
+            - "source /usr/local/bin/eni_name.sh\n"
+            - "echo \"eni_name: ${eni_name}\"\n"
+            - "/usr/local/bin/attach_ebs.py $eni_name /dev/xvdg /var/lib/zookeeper\n"
+            - "sleep 20\n"
+            - "ruby /usr/local/bin/zk_server.rb\n"
+            - "sleep 10\n"
+            - "service zookeeper restart\n"
             - "\n"
             - "cfn-signal -e 0 --stack "
             - Ref: AWS::StackName

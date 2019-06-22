@@ -9,7 +9,7 @@ require 'pipeline/keystore'
 desc 'Deploy Zookeeper'
 task :deploy do
   puts 'deploy cfn'
-  stack_name = 'ExDataLab-ZOOKEEPER'
+  stack_name = 'XSP-ZOOKEEPER'
   ks = Pipeline::Keystore.new
   subnet1 = ks.query?('PRIVATE_SUBNET_1')
   subnet2 = ks.query?('PRIVATE_SUBNET_2')

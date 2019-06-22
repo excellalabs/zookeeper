@@ -7,6 +7,7 @@
 
 include_recipe 'zookeeper-config::service'
 include_recipe 'lvm::default'
+include_recipe 'zookeeper-config::rvm'
 
 script 'download confluent key' do
   interpreter 'bash'
@@ -26,28 +27,29 @@ script 'apt-get update' do
 end
 
 # rubocop:disable Naming/HeredocDelimiterNaming
-bash 'install rvm' do
-  code <<-EOH
-  sudo apt-get install software-properties-common
-  sudo apt-add-repository -y ppa:rael-gc/rvm
-  sudo apt-get update
-  sudo apt-get install rvm -y
-  sudo /usr/share/rvm/bin/rvm install ruby 2.5.3
-  EOH
-end
+# bash 'install rvm' do
+#   code <<-EOH
+#   sudo apt-get install software-properties-common
+#   sudo apt-add-repository -y ppa:rael-gc/rvm
+#   sudo apt-get update
+#   sudo apt-get install rvm -y
+#   sudo /usr/share/rvm/bin/rvm install ruby 2.5.3
+#   EOH
+# end
 
 bash 'install gems' do
   code <<-EOH
-  source /usr/share/rvm/scripts/rvm
-  rvm --default use 2.5.3
-  gem install aws-sdk keystore
+    source /usr/share/rvm/scripts/rvm
+    rvm --default use 2.5.3
+    gem install aws-sdk keystore trollop
   EOH
+  user 'root'
+  group 'root'
 end
 
 [
   'awscli',
-  'confluent-platform-oss-2.11',
-  'ruby'
+  'confluent-platform-oss-2.11'
 ].each do |pkg|
   package pkg
 end
