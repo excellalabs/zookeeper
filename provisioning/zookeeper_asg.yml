@@ -273,7 +273,7 @@ Resources:
             - "echo 'hello from userdata'\n"
             - "ruby --version \n"
             - "rvm use 2.5.3\n"
-            # - "gem install aws-sdk keystore trollop\n"
+            - "gem install aws-sdk keystore trollop\n"
             - "ruby /usr/local/bin/eni_switcher.rb\n"
             - "sleep 20\n"
             - "source /usr/local/bin/eni_name.sh\n"
