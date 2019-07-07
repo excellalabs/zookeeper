@@ -1,7 +1,7 @@
 Apache Zookeeper
 ===================
 
-This repository contains pipeline and infrastructure code for creating Zookeeper
+This repository contains pipeline and infrastructure code for deploying Zookeeper
 services for Excella Stream Processing Platform.
 
 ## What is Zookeeper
