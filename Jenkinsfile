@@ -12,15 +12,13 @@ pipeline {
 
     stage('Commit') {
       steps {
-        // sh 'rm -rf ./*'
-        // checkout scm
         rvm '2.5.3'
       }
     }
 
     stage('Code Analysis') {
       steps {
-        // rake 'rubocop'
+        rake 'rubocop'
         echo 'done'
       }
     }
